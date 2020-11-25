@@ -6,6 +6,26 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export enum ApplicableLevel {
+    final = "final",
+    items = "items",
+    types = "types"
+}
+
+export enum DiscountOn {
+    types = "types",
+    quantity = "quantity",
+    finalPrice = "finalPrice",
+    category = "category",
+    loyalty = "loyalty",
+    items = "items"
+}
+
+export enum DiscountType {
+    addOn = "addOn",
+    singleton = "singleton"
+}
+
 export class Message {
     id: number;
     description: string;
@@ -15,6 +35,8 @@ export abstract class IQuery {
     abstract messages(): Message[] | Promise<Message[]>;
     abstract getAppointment(id?: string): Appointment | Promise<Appointment>;
     abstract getAppointmentList(): Appointments | Promise<Appointments>;
+    abstract getProductList(): Items | Promise<Items>;
+    abstract getDiscountList(): Discount[] | Promise<Discount[]>;
 }
 
 export abstract class IMutation {
@@ -53,3 +75,40 @@ export class AppointmentResource {
     fullUrl?: string;
     resource?: Appointment;
 }
+
+export class Item {
+    id?: number;
+    type?: string;
+    name?: string;
+    price?: number;
+    taxCategory?: string;
+}
+
+export class Items {
+    data?: Item[];
+    total?: number;
+    date?: string;
+}
+
+export class Discount {
+    discountId?: number;
+    discountAmount?: number;
+    expiryDate?: string;
+    applicableLevel?: ApplicableLevel;
+    discountType?: DiscountType;
+    description?: string;
+    discountOn?: DiscountOn;
+    criteria?: Criteria[];
+}
+
+export class CriteriaValueInt {
+    discountOn?: DiscountOn;
+    value?: number;
+}
+
+export class CriteriaValueString {
+    discountOn?: DiscountOn;
+    value?: string;
+}
+
+export type Criteria = CriteriaValueInt | CriteriaValueString;

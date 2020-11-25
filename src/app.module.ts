@@ -5,7 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { StartwarsModule } from './starwars/starwars.module';
 import { MessagesModule } from './messages/messages.module';
-
+import { CoffeeShopModule } from './coffeeshop/coffeeshop.module';
 @Module({
   imports: [
     GraphQLModule.forRoot({
@@ -19,7 +19,8 @@ import { MessagesModule } from './messages/messages.module';
       },
     }),
     StartwarsModule,
-    MessagesModule
+    MessagesModule,
+    CoffeeShopModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -7,6 +7,8 @@ type Query {
   messages: [Message]!
   getAppointment(id: String): Appointment
   getAppointmentList: Appointments
+  getProductList: Items
+  getDiscountList: [Discount]
 }
 
 type Mutation {
@@ -44,4 +46,64 @@ type Appointments {
 type AppointmentResource {
     fullUrl: String,
     resource: Appointment
+}
+
+type Item {
+  id: Int,
+  type: String,
+  name: String,
+  price: Int,
+  taxCategory: String
+}
+
+type Items {
+  data: [Item],
+  total: Int,
+  date: String
+}
+
+enum ApplicableLevel {
+  final,
+  items,
+  types
+}
+
+enum DiscountOn {
+  types
+  quantity
+  finalPrice
+  category
+  loyalty
+  items
+}
+
+enum DiscountType {
+  addOn
+  singleton
+}
+type Discount {
+  discountId: Int,
+  discountAmount: Int,
+  expiryDate: String,
+  applicableLevel: ApplicableLevel,
+  discountType: DiscountType,
+  description: String,
+  discountOn: DiscountOn,
+  criteria: [Criteria]
+}
+
+type Criteria {
+  discountOn: DiscountOn
+}
+
+union CriteriaUnion = CriteriaValueInt | CriteriaValueString
+
+type CriteriaValueInt {
+  discountOn: DiscountOn,
+  value: Int
+}
+
+type CriteriaValueString {
+  discountOn: DiscountOn,
+  value: String
 }

@@ -1,0 +1,50 @@
+{ 
+    "discount":[
+    {
+        "discountId": 1,
+        "discountAmount": 10,
+        "expiryDate": "12-12-2020",
+        "discountType": "singleton",
+        "applicableLevel": "types",
+        "discountOn": ["types", "quantity"],
+        "criteria": [{
+            "discountOn": "types",
+            "value": "food"
+          },
+          {
+            "discountOn": "quantity",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "discountId": 2,
+        "discountAmount": 5,
+        "expiryDate": "12-12-2020",
+        "discountType": "addon",
+        "applicableLevel": "items",
+        "discountOn": ["items", "quantity"],
+        "criteria": [{
+            "discountOn": "items",
+            "value": 1
+          },
+          {
+            "discountOn": "quantity",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "discountId": 3,
+        "discountAmount": 5,
+        "expiryDate": "12/12/2020",
+        "discountType": "addon",
+        "applicableLevel": "final",
+        "discountOn": ["finalPrice"],
+        "criteria": [{
+          "discountOn": "finalPrice",
+          "value": 100
+        }]
+      }
+    ]
+  }
