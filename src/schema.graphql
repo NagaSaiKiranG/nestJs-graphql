@@ -1,0 +1,47 @@
+type Message {
+  id: Int!
+  description: String!
+}
+
+type Query {
+  messages: [Message]!
+  getAppointment(id: String): Appointment
+  getAppointmentList: Appointments
+}
+
+type Mutation {
+  createMessage(description: String!): Message!
+}
+
+type Appointment {
+  id: String
+  resourceType: String!
+  status: String!
+  description: String
+  start: String
+  end: String
+  minutesDuration: Int
+  participant: [AppointmentParticipant]
+}
+
+type AppointmentParticipant {
+    actor: AppointmentParticipantActor,
+    status: String
+}
+
+type AppointmentParticipantActor {
+    display: String,
+    reference: String
+}
+
+type Appointments {
+    id: String
+  resourceType: String!,
+  type: String,
+  entry: [AppointmentResource]
+}
+
+type AppointmentResource {
+    fullUrl: String,
+    resource: Appointment
+}
