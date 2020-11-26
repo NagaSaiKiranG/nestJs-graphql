@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import {list} from './mock_productList';
-import * as discountList from './discountListMock.json';
+import * as discountList from './discountListMock';
 import orderSummary from '../utils/order-summary-utils';
 
 @Injectable()
