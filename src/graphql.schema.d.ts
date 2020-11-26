@@ -26,6 +26,24 @@ export enum DiscountType {
     singleton = "singleton"
 }
 
+export class ItemSelected {
+    id: number;
+    price: number;
+    quantity: number;
+    taxCategory: string;
+}
+
+export class CategorySelected {
+    type: string;
+    items: ItemSelected[];
+}
+
+export class Cart {
+    orderSummary: CategorySelected[];
+    total: number;
+    discountIds?: number[];
+}
+
 export class Message {
     id: number;
     description: string;
@@ -41,6 +59,7 @@ export abstract class IQuery {
 
 export abstract class IMutation {
     abstract createMessage(description: string): Message | Promise<Message>;
+    abstract calculateOrderPrice(data?: Cart): OrderSummary | Promise<OrderSummary>;
 }
 
 export class Appointment {
@@ -113,6 +132,13 @@ export class CriteriaValueInt {
 export class CriteriaValueString {
     discountOn?: DiscountOn;
     value?: string;
+}
+
+export class OrderSummary {
+    finalPrice?: number;
+    discountAmount?: number;
+    totalTax?: number;
+    totalPaymentRequired?: number;
 }
 
 export type CriteriaUnion = CriteriaValueInt | CriteriaValueString;

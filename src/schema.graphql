@@ -13,6 +13,7 @@ type Query {
 
 type Mutation {
   createMessage(description: String!): Message!
+  calculateOrderPrice(data: Cart): OrderSummary
 }
 
 type Appointment {
@@ -106,4 +107,29 @@ type CriteriaValueInt {
 type CriteriaValueString {
   discountOn: DiscountOn,
   value: String
+}
+
+input ItemSelected {
+  id: Int!,
+  price: Float!,
+  quantity: Int!
+  taxCategory: String!
+}
+
+input CategorySelected {
+  type: String!,
+  items: [ItemSelected]!
+}
+
+input Cart {
+  orderSummary: [CategorySelected]!,
+  total: Int!,
+  discountIds: [Int]
+}
+
+type OrderSummary {
+  finalPrice: Float,
+  discountAmount: Float,
+  totalTax: Float,
+  totalPaymentRequired: Float
 }

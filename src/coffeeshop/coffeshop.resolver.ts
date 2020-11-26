@@ -1,4 +1,4 @@
-import { Resolver, Query, Args } from '@nestjs/graphql';
+import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { CoffeeShopService } from './coffeshop.service';
 
 @Resolver()
@@ -11,5 +11,11 @@ export class CoffeeShopResolver {
     @Query()
     getDiscountList() {
         return this.coffeeshopService.getDiscountList();
+    }
+
+    @Mutation('calculateOrderPrice')
+    calculateOrderPrice(@Args('data') data) {
+        // console.log(data);
+        return this.coffeeshopService.calculateOrderPrice(data);
     }
 }
