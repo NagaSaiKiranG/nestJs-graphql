@@ -7,7 +7,7 @@ export default function orderSummary(data, discounts, taxCategory) {
         finalPrice
     } = formatedData;
     //console.log(formatedData);
-    validateDiscounts(data.discountIds, formatedData, discounts);
+    const validDiscounts = validateDiscounts(data.discountIds, formatedData, discounts);
     const {
         totalPaymentRequired,
         discountAmount,
@@ -22,7 +22,7 @@ export default function orderSummary(data, discounts, taxCategory) {
     }
 }
 
-function formatData(data) {
+export function formatData(data) {
     const typesSelected = [];
     const itemsSelected = [];
     let finalPrice = 0;
@@ -58,16 +58,16 @@ function formatData(data) {
     }
 }
 
-function validateDiscounts(discountIds, summary, discounts) {
+export function validateDiscounts(discountIds, summary, discounts) {
     const discountsSelected = discounts.filter((discount) => discountIds.includes(discount.discountId));
     discountsSelected.forEach((discount) => {
         if (isDiscountApplicable(discount, summary)) {
             updateDiscountValue(discount, summary);
         }
     })
-
+    return discountsSelected;
 }
-function isDiscountApplicable(discount, summary) {
+export function isDiscountApplicable(discount, summary) {
     const { discountOn, criteria, applicableLevel } = discount;
     let isApplicable = true;
     let obj;
@@ -88,7 +88,7 @@ function isDiscountApplicable(discount, summary) {
     })
     return isApplicable;
 }
-function updateDiscountValue(discount, summary) {
+export function updateDiscountValue(discount, summary) {
     const { discountOn, criteria, discountAmount, applicableLevel } = discount;
     if (applicableLevel === 'final') {
         summary.discount = discountAmount;
@@ -101,11 +101,11 @@ function updateDiscountValue(discount, summary) {
     }
     /* console.log('summary after apply',summary) */
 }
-function calculatePercentage(value, percentage) {
+export function calculatePercentage(value, percentage) {
     let val = (value * percentage) / 100;
     return roundToTwo(val);
 }
-function calculatePriceComponent(data, summary, taxCategory) {
+export function calculatePriceComponent(data, summary, taxCategory) {
     let totalPaymentRequired = 0,
         discountAmount = 0,
         totalTax = 0;
@@ -132,6 +132,6 @@ function calculatePriceComponent(data, summary, taxCategory) {
         totalTax
     }
 }
-function roundToTwo(num) {
+export function roundToTwo(num) {
     return +(Math.round(+(num + "e+2")) + "e-2");
 }
