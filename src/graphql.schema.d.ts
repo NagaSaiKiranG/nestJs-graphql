@@ -101,6 +101,10 @@ export class Discount {
     criteria?: Criteria[];
 }
 
+export class Criteria {
+    discountOn?: DiscountOn;
+}
+
 export class CriteriaValueInt {
     discountOn?: DiscountOn;
     value?: number;
@@ -111,4 +115,4 @@ export class CriteriaValueString {
     value?: string;
 }
 
-export type Criteria = CriteriaValueInt | CriteriaValueString;
+export type CriteriaUnion = CriteriaValueInt | CriteriaValueString;

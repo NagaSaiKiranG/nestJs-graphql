@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import {list} from './mock_productList';
 import * as discountList from './discountListMock.json';
+import orderSummary from '../utils/order-summary-utils';
+
 @Injectable()
 export class CoffeeShopService {
     // products = (<any>productsList).data;
@@ -74,10 +76,19 @@ export class CoffeeShopService {
         total: 2,
         time: "12/12/2020"
     }
+    taxCategory = {
+        level_1: 0,
+        level_2: 5,
+        level_3: 15,
+        level_4: 18
+    }
     getProductsList() : any {
         return list;
     }
     getDiscountList() : any {
         return this.discountObj;
+    }
+    calculateOrderPrice(data) {
+        return orderSummary(data, this.discountObj, this.taxCategory);
     }
 }
